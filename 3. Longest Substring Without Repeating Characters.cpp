@@ -20,29 +20,34 @@ ifstream fin("infile.txt");
 ofstream fou("oufile.txt");
 
 
-int lengthOfLongestSubstring(string s) {
-   int* lengthOfLongestSubstringEndingInI = new int[s.length()];
-   lengthOfLongestSubstringEndingInI[0] = 1;
-   for(int i = 1; i < s.length(); i++) {
-   	if(s[i] == s[i - 1]) {
-   		lengthOfLongestSubstringEndingInI[i] = 1;
-   	} else {
-
-   		int a = lengthOfLongestSubstringEndingInI[i - 1] + 1;
-   		int b = lengthOfLongestSubstringEndingInI[i - 1 - lengthOfLongestSubstringEndingInI[i - 1]];
-   		if(a < b) {
-   			lengthOfLongestSubstringEndingInI[i] = b;
-   		} else {
-   			lengthOfLongestSubstringEndingInI[i] = a;
-   		}
-   	}
+int lengthOfLongestSubstring(string str) {
+   unordered_map<char, int> s;
+   unordered_map<char, int>::iterator it;
+   if(str.length() == 0) return 0;
+   int max = 1;
+   int start = 0;
+   int end = 1;
+   while(end <= str.length()) {
+      if (s.find(str[end - 1]) == s.end()) {
+         s[str[end - 1]] = end - 1;
+      } else {
+         for(int i = start; i < end - 1; i++) {
+            cout << str[i];
+         }
+         cout << endl;
+         if(end - 1 - start > max) {
+            max = end - start - 1;
+         } 
+         if(start < s[str[end - 1]] + 1) start = s[str[end - 1]] + 1;
+         s[str[end - 1]] = end - 1;
+      }
+      end++;
    }
-   int max = lengthOfLongestSubstringEndingInI[0];
-   for(int i = 1; i < s.length(); i++) {
-   	if(lengthOfLongestSubstringEndingInI[i] > max) {
-   		max = lengthOfLongestSubstringEndingInI[i];
-   	}
+   for(int i = start; i < end - 1; i++) {
+      cout << str[i];
    }
+   cout << endl;
+   if(end - 1 - start > max) max = end - 1 - start;
    return max;
 }
 
