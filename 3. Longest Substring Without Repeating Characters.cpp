@@ -51,6 +51,8 @@ int lengthOfLongestSubstring(string str) {
    return max;
 }
 
+
+
 int main() {
 	string line;
 	vector<int> nums;
