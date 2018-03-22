@@ -13,38 +13,49 @@ struct ListNode {
     ListNode(int x) : val(x), next(NULL) {}
  };
 
-// exchange left and right return the last element of the reversed linked list
- ListNode* swap(ListNode* connector, ListNode* left, ListNode* right) {
- 	connector->next = right;
- 	right->next = left;
-  return left;
- }
-// reverse the list of length k and return the last element of the reversed linked list
- ListNode* reverse(ListNode* head, ListNode* tail) {
-  
+// [pre, next] return head 
+// the last element of the k group(head) connect the first elemnt of the next k group.
+ListNode* reverse(ListNode* pre, ListNode* end) {
+
+   if(pre == NULL || pre->next == NULL) return pre;
+    
+    ListNode* head = pre->next;
+    ListNode* cur = pre->next->next;
+
+    while(cur != end) {
+      ListNode* next = cur->next;
+      cur->next = pre->next;
+      pre->next = cur;
+      cur = next;
+    }
+
+    head->next = end;
+    return head;
  }
 
-// a > 0 => a >= 1
- ListNode* last(ListNode* head, int length) {
-   while(length > 1) {
-     if(head == NULL) return NULL;
-     head = head->next;
-     length--;
-   }
-   return head;
- }
+
 
 ListNode* reverseKGroup(ListNode* head, int k) {
+  if(head == NULL) return NULL;
+  
   ListNode* dummy = new ListNode(0);
   dummy->next = head;
+  
+  int counter = 0;
   ListNode* pre = dummy;
   ListNode* cur = dummy->next;
-  ListNode* nxt = last(cur, k);
-  while(pre != NULL) {
-    pre = reverse(cur, k);
-    pre->next = nxt;
-  }
-  pre->next = cur;
+  
+  while(cur != NULL) {
+    while(counter < k && cur != NULL) {
+      counter++;
+      cur = cur->next;
+    }
+
+    //cout << "reverse(" << pre->val << ", " << cur->val << ")" << endl;
+    if(counter == k) pre = reverse(pre, cur);
+    //cur = cur->next;
+    counter = 0;
+  }  
   return dummy->next;
 }
 
@@ -56,6 +67,7 @@ void printLinkedList(ListNode* head) {
    cout << head->val;
    head = head->next;
  }
+ 
  cout << endl;
 }
 
