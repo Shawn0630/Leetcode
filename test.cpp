@@ -12,6 +12,7 @@
 #include <unordered_map>
 #include <cctype>
 #include <algorithm>
+#include <optional>
 
 using namespace std;
 
@@ -38,6 +39,15 @@ void mergeVectors(vector<T> &nums1, vector<T> &nums2) {
     }
 }
 
+template<typename T>
+void swap(T* a, T* b) {
+    if (*a == *b) return;
+
+    *a ^= *b;
+    *b ^= *a;
+    *a ^= *b;
+}
+
 template <typename T>
 int kth(vector<T>& nums1, vector<T>& nums2, int k) {
     mergeVectors(nums1, nums2);
@@ -50,5 +60,15 @@ int main() {
     vector<int> nums1(arr1, arr1 + sizeof(arr1) / sizeof(arr1[0]));
     vector<int> nums2(arr2, arr2 + sizeof(arr2) / sizeof(arr2[0]));
     cout << kth(nums1, nums2, 5) << endl;
+
+    char c = 'a';
+    char d = 'd';
+    swap(&c, &d);
+    cout << c << d << endl;
+
+    int a = 3;
+    int b = 4;
+    swap(&a, &b);
+    cout << a << b << endl;
     return 0;
 }
