@@ -12,5 +12,4 @@ void Test31::TearDown(){};
 
 TEST_F(Test31, EmptyGraph)
 {
-
 }

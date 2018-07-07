@@ -20,5 +20,5 @@ ifstream fin("infile.txt");
 ofstream fou("oufile.txt");
 
 void nextPermutation(vector<int> &nums) {
-    
+    return;
 }
