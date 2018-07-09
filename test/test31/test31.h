@@ -1,8 +1,6 @@
 #include "gtest/gtest.h"
 #include <iostream>
 
-#include "31. Next Permutation.cpp"
-
 // The fixture for testing class Foo.
 class Test31 : public ::testing::Test
 {
