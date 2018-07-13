@@ -13,7 +13,7 @@ void Test31::SetUp(){};
 
 void Test31::TearDown(){};
 
-TEST_F(Test31, EmptyGraph)
+TEST_F(Test31, TEST31)
 {
     vector<int> test1;
     test1.push_back(1);

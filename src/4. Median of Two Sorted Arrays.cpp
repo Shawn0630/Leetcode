@@ -121,6 +121,49 @@ int findKthLargestNum(vector<int> nums, int k) {
     return findKthLargestNum(nums, 0, nums.size() - 1, k);
 }
 
+double findMedianSortedArraysUntil(const vector<int> &small, int small_min, int small_max,
+                                   const vector<int> &large)
+{
+    if (small_min <= small_max) {
+        int small_mid = (small_min + small_max) / 2;
+        int large_mid = (small.size() + large.size() + 1) / 2 - small_mid;
+
+        if (small_mid > 0 && large_mid < large.size() && small[small_mid - 1] > large[large_mid]) {
+            findMedianSortedArraysUntil(small, small_mid + 1, small_max, large);
+        } else if (large_mid > 0 && small_mid < small.size() && large[large_mid - 1] > small[small_mid]) {
+            findMedianSortedArraysUntil(small, small_min, small_mid - 1, large);
+        } else {
+            int medium_small;
+            if (small_mid == 0){
+                medium_small = large[large_mid - 1];
+            } else if (large_mid == 0) {
+                medium_small = small[small_mid - 1];
+            } else {
+                medium_small = std::max(small[small_mid - 1], large[large_mid - 1]);
+                cout << "medium_small" << medium_small << endl;
+
+
+                if ((small.size() + large.size()) % 2 == 1) {
+                    return (double)medium_small;
+                } else {
+                    int medium_large;
+                    if (small_mid == small.size()) {
+                        medium_large = large[large_mid];
+                    } else if (large_mid == large.size()) {
+                        medium_large = small[small_mid];
+                    } else {
+                        medium_large = std::min(small[small_mid], large[large_mid]);
+                    }
+
+                    cout << "medium_large = " << medium_large << endl;
+ 
+                    return (double)(medium_small + medium_large) / (double)2;
+                }
+            }
+        }
+    }
+}
+
 //[start end)  empty start >= end
 //[start, end] empty start > end
 double findMedianSortedArrays(vector<int> &nums1, vector<int> &nums2) {
@@ -135,40 +178,45 @@ double findMedianSortedArrays(vector<int> &nums1, vector<int> &nums2) {
     // }
 
     // Solution 2:
-    findKthLargestNum(nums1, 3); 
+    // findKthLargestNum(nums1, 3); 
 
+    // Solution 3:
+
+    return findMedianSortedArraysUntil(nums1.size() <= nums2.size() ? nums1 : nums2, 0,
+                                       nums1.size() <= nums2.size() ? nums1.size() - 1 : nums2.size() - 1,
+                                       nums1.size() <= nums2.size() ? nums2 : nums1);
 }
 
-int main() {
-    string line;
-    int read = 0;
-    vector<int> nums1, nums2;
-    while (getline(fin, line)) {
-        if (line.size() == 0) break;
-        istringstream iss(line);
-        int num;
+// int main() {
+//     string line;
+//     int read = 0;
+//     vector<int> nums1, nums2;
+//     while (getline(fin, line)) {
+//         if (line.size() == 0) break;
+//         istringstream iss(line);
+//         int num;
          
-        switch(read) {
-            case 0:
-                while (iss >> num) {
-                    nums1.push_back(num);
-                }
-                read = 1;
-                break;
-            case 1:
-                while (iss >> num) {
-                    nums2.push_back(num);
-                }
-                printVector(nums1);
-                printVector(nums2);
-                swap(nums1, 1, 2);
-                printVector(nums1);
-                cout << findMedianSortedArrays(nums1, nums2) << endl;
-                nums1.clear();
-                nums2.clear();
-                read = 0;
-                break;
-        }
-    }
-    return 0;
-}
+//         switch(read) {
+//             case 0:
+//                 while (iss >> num) {
+//                     nums1.push_back(num);
+//                 }
+//                 read = 1;
+//                 break;
+//             case 1:
+//                 while (iss >> num) {
+//                     nums2.push_back(num);
+//                 }
+//                 printVector(nums1);
+//                 printVector(nums2);
+//                 swap(nums1, 1, 2);
+//                 printVector(nums1);
+//                 cout << findMedianSortedArrays(nums1, nums2) << endl;
+//                 nums1.clear();
+//                 nums2.clear();
+//                 read = 0;
+//                 break;
+//         }
+//     }
+//     return 0;
+// }
