@@ -23,5 +23,19 @@ TEST_F(Test4, TEST4)
     vector<int> v2;
     v2.push_back(4);
 
+    vector<int> v3;
+    v3.push_back(1);
+    v3.push_back(3);
+
+    vector<int> v4;
+    v4.push_back(2);
+
+    vector<int> v5;
+    v5.push_back(2);
+    vector<int> v6;
+    v6.push_back(2);
+
     EXPECT_EQ((double)(2 + 3) / (double)2, findMedianSortedArrays(v1, v2));
+    EXPECT_EQ((double)2, findMedianSortedArrays(v3, v4));
+    EXPECT_EQ((double)(2 + 2) / (double)2, findMedianSortedArrays(v5, v6));
 }
