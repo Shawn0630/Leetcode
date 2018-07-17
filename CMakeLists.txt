@@ -23,6 +23,11 @@ project(${LIBRARY_NAME} LANGUAGES CXX VERSION 1.1.1)
 ##
 option(ENABLE_TESTING  "Build the unit tests." ON)
 
+##
+## DEBUG
+##
+set(CMAKE_BUILD_TYPE Debug)
+
 # set the Standard version
 include(CheckCXXCompilerFlag)
 check_cxx_compiler_flag("-std=c++17" COMPILER_SUPPORTS_CXX17)
