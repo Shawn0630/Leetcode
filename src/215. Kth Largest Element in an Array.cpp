@@ -25,22 +25,30 @@ void swap(vector<int>& nums, int l, int r) {
 int partition(vector<int> & nums, int l, int r) {
     int pivot = nums[l];
     int pivot_pos = l;
-    l++;
     while(l <= r) {
-       while(pivot < nums[r] && l <= r) r--;
-       while(nums[l] < pivot && l <= r) l++;
-       if (nums[l] > nums[r]) {
-           swap(nums, l, r);
-       }
+        while (nums[l] >= pivot && l <= r)
+            l++;
+        while (pivot >= nums[r] && l <= r)
+            r--;
+        if (l < r) {
+            swap(nums, l, r);
+        }
     }
-    if(nums[r] < pivot) {
-        swap(nums, r, pivot_pos);
-    }
-
+    swap(nums, r, pivot_pos);
     return r;
 }
 
+int findKthLargestUntil(vector<int> &nums, int left, int right, int k) {
+    int pos = partition(nums, left, right);
+    if (pos == k - 1) {
+        return nums[pos];
+    } else if (pos < k - 1){
+        return findKthLargestUntil(nums, pos + 1, right, k);
+    } else {
+        return findKthLargestUntil(nums, left, pos - 1, k);
+    }
+}
+
 int findKthLargest(vector<int> &nums, int k) {
-
-
+    return findKthLargestUntil(nums, 0, nums.size() - 1, k);
 }

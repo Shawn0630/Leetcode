@@ -13,31 +13,83 @@ void Test215::SetUp(){};
 
 void Test215::TearDown(){};
 
-TEST_F(Test215, TEST_PATTION)
+TEST_F(Test215, TEST_PATITION_SINGLE_ELEMENT) {
+    vector<int> single;
+    single.push_back(2);
+
+    EXPECT_EQ(0, partition(single, 0, single.size() - 1));
+    EXPECT_THAT(single, ::testing::ElementsAre(2));
+}
+
+TEST_F(Test215, TEST_PARTITION_ELEMENTS) {
+    vector<int> twoElement;
+    twoElement.push_back(0);
+    twoElement.push_back(1);
+
+    EXPECT_EQ(1, partition(twoElement, 0, twoElement.size() - 1));
+    EXPECT_THAT(twoElement, ::testing::ElementsAre(1, 0));
+}
+
+TEST_F(Test215, TEST_PARTITION_ELEMENTS_REVERSE)
 {
-    vector<int> v1;
-    v1.push_back(2);
-    v1.push_back(1);
-    v1.push_back(3);
+    vector<int> twoElement;
+    twoElement.push_back(1);
+    twoElement.push_back(0);
 
-    vector<int> v2;
-    v2.push_back(4);
+    EXPECT_EQ(0, partition(twoElement, 0, twoElement.size() - 1));
+    EXPECT_THAT(twoElement, ::testing::ElementsAre(1, 0));
+}
 
-    vector<int> v3;
-    v3.push_back(1);
-    v3.push_back(3);
+TEST_F(Test215, TEST_KTH_ELEMENT) {
+    vector<int> single;
+    single.push_back(2);
 
-    vector<int> v4;
-    v4.push_back(2);
+    EXPECT_EQ(2, findKthLargest(single, 1));
+}
 
-    vector<int> v5;
-    v5.push_back(2);
-    vector<int> v6;
-    v6.push_back(2);
+TEST_F(Test215, TEST_KTH_ELEMENT_ELEMENTS) {
+    vector<int> twoElement;
+    twoElement.push_back(1);
+    twoElement.push_back(2);
 
-   cout << partition(v1, 0, v1.size() - 1) << endl;
-   cout << partition(v2, 0, v2.size() - 1) << endl;
-   cout << partition(v3, 0, v3.size() - 1) << endl;
-   cout << partition(v4, 0, v4.size() - 1) << endl;
-   cout << partition(v5, 0, v5.size() - 1) << endl;
+    EXPECT_EQ(1, findKthLargest(twoElement, 2));
+}
+
+TEST_F(Test215, TEST_KTH_ELEMENT_ELEMENTS_REVERSE)
+{
+    vector<int> twoElement;
+    twoElement.push_back(2);
+    twoElement.push_back(1);
+
+    EXPECT_EQ(2, findKthLargest(twoElement, 1));
+    EXPECT_EQ(1, findKthLargest(twoElement, 2));
+}
+
+TEST_F(Test215, TEST_KTH_ELEMENT_GENERAL)
+{
+    vector<int> general;
+    general.push_back(3);
+    general.push_back(2);
+    general.push_back(1);
+    general.push_back(5);
+    general.push_back(6);
+    general.push_back(4);
+
+    EXPECT_EQ(5, findKthLargest(general, 2));
+}
+
+TEST_F(Test215, TEST_KTH_ELEMENT_GENERAL_WITH_DUPLICATION)
+{
+    vector<int> general;
+    general.push_back(3);
+    general.push_back(2);
+    general.push_back(3);
+    general.push_back(1);
+    general.push_back(2);
+    general.push_back(4);
+    general.push_back(5);
+    general.push_back(5);
+    general.push_back(6);
+
+    EXPECT_EQ(4, findKthLargest(general, 4));
 }
