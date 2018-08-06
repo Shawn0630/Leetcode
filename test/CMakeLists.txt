@@ -39,7 +39,13 @@ set_target_properties(libgmock PROPERTIES
 include_directories("${source_dir}/googletest/include"
                     "${source_dir}/googlemock/include")
 
-add_subdirectory(test31)
 add_subdirectory(test4)
+add_subdirectory(test31)
+add_subdirectory(test33)
+add_subdirectory(test62)
+add_subdirectory(test63)
+add_subdirectory(test81)
 add_subdirectory(test215)
+add_subdirectory(test219)
+add_subdirectory(test220)
 add_subdirectory(testGeneral)
