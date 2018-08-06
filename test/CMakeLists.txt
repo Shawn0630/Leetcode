@@ -42,6 +42,7 @@ include_directories("${source_dir}/googletest/include"
 add_subdirectory(test4)
 add_subdirectory(test31)
 add_subdirectory(test33)
+add_subdirectory(test61)
 add_subdirectory(test62)
 add_subdirectory(test63)
 add_subdirectory(test81)
