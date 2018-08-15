@@ -106,3 +106,23 @@ int moves(vector<int> a) {
 
     return move;
 }
+
+
+bool appearsThreeTimes(vector<int> array) {
+
+    vector<int> pos;
+    for (int i = 0; i < array.size(); i++) {
+        if (array[i] == 3) {
+            if (pos.size() > 1 && pos[pos.size() - 1] == i - 1) {
+                return false;
+            }
+            pos.push_back(i);
+        }
+    }
+
+    if (pos.size() == 3) {
+        return true;
+    }
+
+    return false;
+}
